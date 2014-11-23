@@ -1,4 +1,6 @@
 ## ############################################################
+## Programming Assignment 2
+##
 ## This script contains the following functions:
 ## makeCacheMatrix - This function creates a special "matrix" object 
 ##                   that can cache its inverse.
@@ -20,26 +22,40 @@
 ## setinverse - sets the  value of the inverse of the input matrix x
 ## getinverse - returns the value of the inverse of the input matrix x.
 ##
-## Note: The input matrix x is assumed to be invertible and therefore 
-##       square. 
+## Notes: The input matrix x is assumed to be invertible and therefore 
+##        square. 
+##        This follows the pattern of the "makeVector" function from 
+##        example given in the assignment instructions.
 ## ############################################################
 makeCacheMatrix <- function(x = matrix()) {
   ## initialize the cached inverse value to nothing
   cached_inverse <- NULL
   
-  ## Create the definition of the set function which just initializes
-  ## the 
+  ## Create the function which just saves
+  ## the value of the input matrix as well as sets the cached inverse 
+  ## value to empty. 
   set <- function(y) {
     x <<- y
     cached_inverse <<- NULL
   }
+  
+  ## Create the function which returns to the
+  ## caller the value of the original input matrix
   get <- function() x
+  
+  ## Create the function which caches the value 
+  ## of the inverse of the original input matrix
   setinverse <- function(inverse) cached_inverse <<- inverse
+  
+  ## Create the function which returns to the
+  ## caller the cached value of the inverse
   getinverse <- function() cached_inverse
+  
+  ## Return to the caller the set of functions defined
+  ## above.
   list(set = set, get = get,
        setinverse = setinverse,
        getinverse = getinverse)
-  
 }
 
 
@@ -52,6 +68,9 @@ makeCacheMatrix <- function(x = matrix()) {
 ## matrix.  If the inverse is in the cache, that value is returned
 ## otherwise it is calculated, set in the cache, and then returned
 ## to the caller.
+##
+## Notes: This follows the pattern of the "cachemean" function from 
+##        example given in the assignment instructions.
 ## ############################################################
 cacheSolve <- function(x, ...) {
   
