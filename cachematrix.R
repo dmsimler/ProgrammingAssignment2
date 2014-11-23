@@ -1,10 +1,28 @@
-## Put comments here that give an overall description of what your
-## functions do
+## ############################################################
+## This script contains the following functions:
+## makeCacheMatrix - This function creates a special "matrix" object 
+##                   that can cache its inverse.
+## cacheSolve - This function computes the inverse of the special 
+##              "matrix" returned by makeCacheMatrix. 
+##              If the inverse has already been calculated (and 
+##              the matrix has not changed), then the cachesolve 
+##              retrieves the inverse from the cache.
+## ############################################################
 
-## Dave updated the file
 
-## Write a short comment describing this function
-
+## ############################################################
+## function makeCacheMatrix:
+## This function takes a matrix (x) as input and returns a list 
+## of 4 functions that are used to manage a cache of the inverse
+## of that input matrix x.  These functions are as follows:
+## get - returns the value of the input matrix x
+## set - sets the value of input matrix x
+## setinverse - sets the  value of the inverse of the input matrix x
+## getinverse - returns the value of the inverse of the input matrix x.
+##
+## Note: The input matrix x is assumed to be invertible and therefore 
+##       square. 
+## ############################################################
 makeCacheMatrix <- function(x = matrix()) {
   ## initialize the cached inverse value to nothing
   cached_inverse <- NULL
@@ -25,12 +43,19 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
-
+## ############################################################
+## function cacheSolve:
+## This function takes a "special matrix" x (assumed to be returned
+## by the function makeCacheMatrix defined above) which is a list 
+## containing four functions that manage caching the inverse of
+## of a square matrix, and returns the inverse of a given input
+## matrix.  If the inverse is in the cache, that value is returned
+## otherwise it is calculated, set in the cache, and then returned
+## to the caller.
+## ############################################################
 cacheSolve <- function(x, ...) {
   
   ## Check to see if the inverse of the matrix in question is in the cache
-  inverse <- NULL
   inverse <- x$getinverse()
   
   if(!is.null(inverse)) {
@@ -55,5 +80,6 @@ cacheSolve <- function(x, ...) {
   ## Return the calcalulated inverse to the caller
   return(inverse)
 }
+
 
 
